@@ -1,0 +1,21 @@
+# Entorno virtual
+moodenv/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Archivos grandes de TensorFlow
+*.h5
+*.tflite
+*.pb
+*.ckpt
+
+# VSCode
+.vscode/
