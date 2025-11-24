@@ -38,7 +38,12 @@ def recomendar_canciones(emocion, n=5):
         (df["tempo"] - target_tempo).abs() * 0.2
     )
 
-    # Ordenar de menor (más parecida) a mayor
-    recomendaciones = df.sort_values("score").head(n)
-
+    # Ordenar de menor (más parecida) a mayor y tomar un pool más grande
+    pool_size = max(30, n*3)  # puedes ajustar el tamaño del pool
+    pool = df.sort_values("score").head(pool_size)
+    # Eliminar canciones repetidas por nombre
+    pool = pool.drop_duplicates(subset=["track_name"])
+    # Si hay menos canciones únicas que n, ajusta n
+    n_final = min(n, len(pool))
+    recomendaciones = pool.sample(n=n_final, random_state=None)
     return recomendaciones[["artist_name", "track_name", "genre", "energy", "valence", "tempo"]]
